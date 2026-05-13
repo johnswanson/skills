@@ -10,7 +10,7 @@ Ingest a new source into the wiki. The argument can be a URL, an absolute or rel
 
 ## Step 0: Resolve the wiki path
 
-Read `~/.config/jds-wiki/config.yml`. The `wiki:` field is the absolute path to the wiki folder. Resolve a leading `~` to `$HOME`. If the file doesn't exist or the field is missing, default to `~/Obsidian/Metabase`.
+Read `~/.config/jds-wiki/config.yml`. The `wiki:` field is the absolute path to the wiki folder. Resolve a leading `~` to `$HOME`. If the file doesn't exist or the field is missing, default to `~/Obsidian/Wiki`.
 
 Throughout this skill, `$WIKI` refers to that resolved path. Concrete paths you'll use:
 

@@ -10,7 +10,7 @@ Answer a question by reading the user's wiki — not by recalling from memory or
 
 ## Step 0: Resolve the wiki path
 
-Read `~/.config/jds-wiki/config.yml`. The `wiki:` field is the absolute path to the wiki folder. Resolve a leading `~` to `$HOME`. If the file doesn't exist or the field is missing, default to `~/Obsidian/Metabase`.
+Read `~/.config/jds-wiki/config.yml`. The `wiki:` field is the absolute path to the wiki folder. Resolve a leading `~` to `$HOME`. If the file doesn't exist or the field is missing, default to `~/Obsidian/Wiki`.
 
 Throughout this skill, `$WIKI` refers to that resolved path. Key paths:
 

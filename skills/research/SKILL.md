@@ -12,7 +12,7 @@ Research a question about the codebase at the current working directory. The arg
 
 The current working directory is the codebase under investigation. If it doesn't look like a code project (no `.git/`, no obvious source files), say so and ask the user where to look instead. Otherwise proceed silently — don't narrate the check.
 
-Also resolve the wiki path from `~/.config/jds-wiki/config.yml` (single field: `wiki: <path>`; default `~/Obsidian/Metabase`). This is only used in step 5.
+Also resolve the wiki path from `~/.config/jds-wiki/config.yml` (single field: `wiki: <path>`; default `~/Obsidian/Wiki`). This is only used in step 5.
 
 ## Step 1: Decompose the question into facets
 

@@ -9,7 +9,7 @@ Currently focused on the **jds-wiki** pattern (an LLM-maintained personal wiki).
 - **`jds:ask`** — `/jds:ask <question>` — answer from the wiki, with citations; offer to file the synthesis back.
 - **`jds:research`** — `/jds:research <question>` — investigate a question against the codebase at the current working directory using parallel exploration; offers to file the synthesis to the wiki.
 
-The wiki-touching skills resolve the wiki path from `~/.config/jds-wiki/config.yml` (single field: `wiki: <path>`). Default if missing: `~/Obsidian/Metabase`.
+The wiki-touching skills resolve the wiki path from `~/.config/jds-wiki/config.yml` (single field: `wiki: <path>`). Default if missing: `~/Obsidian/Wiki`.
 
 ## Bootstrap on a new machine
 
