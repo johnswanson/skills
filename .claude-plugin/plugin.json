@@ -1,6 +1,6 @@
 {
   "name": "jds",
-  "description": "Personal skills for the jds-wiki pattern — an LLM-maintained personal wiki. Includes /ingest, /lint, and /ask.",
+  "description": "Personal skills for the jds-wiki pattern — an LLM-maintained personal wiki. Includes /ingest, /lint, /ask, and /research.",
   "version": "0.1.0",
   "author": {
     "name": "John Swanson"

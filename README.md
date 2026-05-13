@@ -7,8 +7,9 @@ Currently focused on the **jds-wiki** pattern (an LLM-maintained personal wiki).
 - **`jds:ingest`** — `/jds:ingest <url-or-path>` — fetch a source, stage it in the wiki's `raw/`, then write/update wiki pages.
 - **`jds:lint`** — `/jds:lint` — read-only health check (contradictions, orphans, gaps).
 - **`jds:ask`** — `/jds:ask <question>` — answer from the wiki, with citations; offer to file the synthesis back.
+- **`jds:research`** — `/jds:research <question>` — investigate a question against the codebase at the current working directory using parallel exploration; offers to file the synthesis to the wiki.
 
-All three resolve the wiki path from `~/.config/jds-wiki/config.yml` (single field: `wiki: <path>`). Default if missing: `~/Obsidian/Metabase`.
+The wiki-touching skills resolve the wiki path from `~/.config/jds-wiki/config.yml` (single field: `wiki: <path>`). Default if missing: `~/Obsidian/Metabase`.
 
 ## Bootstrap on a new machine
 
@@ -45,7 +46,8 @@ skills/                       # repo root
 └── skills/                   # default skills directory
     ├── ingest/SKILL.md
     ├── lint/SKILL.md
-    └── ask/SKILL.md
+    ├── ask/SKILL.md
+    └── research/SKILL.md
 ```
 
 Each folder under `skills/` containing a `SKILL.md` becomes a skill in the `jds:` namespace.
