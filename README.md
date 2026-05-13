@@ -1,12 +1,12 @@
 # skills
 
-User-global [Claude Code](https://claude.com/claude-code) skills, kept in version control so they can be installed on multiple machines.
+A [Claude Code](https://claude.com/claude-code) plugin (`jds`) packaging the personal skills I use across machines, kept in version control.
 
-Currently focused on the **jds-wiki** pattern (an LLM-maintained personal wiki — see [`idea.md`](https://github.com/) or wherever you keep the pattern doc). Skills:
+Currently focused on the **jds-wiki** pattern (an LLM-maintained personal wiki). Skills:
 
-- **`ingest/`** — `/ingest <url-or-path>` — fetch a source, stage it in the wiki's `raw/`, then write/update wiki pages.
-- **`lint/`** — `/lint` — read-only health check (contradictions, orphans, gaps).
-- **`ask/`** — `/ask <question>` — answer from the wiki, with citations; offer to file the synthesis back.
+- **`jds:ingest`** — `/jds:ingest <url-or-path>` — fetch a source, stage it in the wiki's `raw/`, then write/update wiki pages.
+- **`jds:lint`** — `/jds:lint` — read-only health check (contradictions, orphans, gaps).
+- **`jds:ask`** — `/jds:ask <question>` — answer from the wiki, with citations; offer to file the synthesis back.
 
 All three resolve the wiki path from `~/.config/jds-wiki/config.yml` (single field: `wiki: <path>`). Default if missing: `~/Obsidian/Metabase`.
 
@@ -15,14 +15,18 @@ All three resolve the wiki path from `~/.config/jds-wiki/config.yml` (single fie
 ```bash
 # 1. Clone the repo
 git clone <this-repo> ~/projects/skills
+```
 
-# 2. Symlink each skill into Claude Code's discovery path
-mkdir -p ~/.claude/skills
-ln -s ~/projects/skills/ingest ~/.claude/skills/ingest
-ln -s ~/projects/skills/lint   ~/.claude/skills/lint
-ln -s ~/projects/skills/ask    ~/.claude/skills/ask
+Then inside Claude Code:
 
-# 3. Point the skills at your wiki on this machine
+```
+/plugin marketplace add ~/projects/skills
+/plugin install jds@jds
+```
+
+Finally, point the skills at your wiki on this machine:
+
+```bash
 mkdir -p ~/.config/jds-wiki
 cat > ~/.config/jds-wiki/config.yml <<'EOF'
 wiki: /absolute/path/to/your/wiki
@@ -34,16 +38,20 @@ The config file is per-machine and **not** part of the repo — filesystem layou
 ## Layout
 
 ```
-skills/
-├── ingest/SKILL.md
-├── lint/SKILL.md
-└── ask/SKILL.md
+skills/                       # repo root
+├── .claude-plugin/
+│   ├── plugin.json           # plugin manifest (name: "jds")
+│   └── marketplace.json      # marketplace manifest
+└── skills/                   # default skills directory
+    ├── ingest/SKILL.md
+    ├── lint/SKILL.md
+    └── ask/SKILL.md
 ```
 
-Each skill is a folder containing a `SKILL.md` with YAML frontmatter (`name`, `description`, `user-invocable: true`). That's all Claude Code needs to register them.
+Each folder under `skills/` containing a `SKILL.md` becomes a skill in the `jds:` namespace.
 
 ## Adding a new skill
 
-1. Create `skills/<name>/SKILL.md` with the frontmatter shape above.
-2. `ln -s ~/projects/skills/<name> ~/.claude/skills/<name>` on each machine.
-3. Commit and push.
+1. Create `skills/<name>/SKILL.md` with the standard frontmatter (`name`, `description`, `user-invocable: true`).
+2. Commit and push.
+3. On each machine: `/plugin update jds@jds`.

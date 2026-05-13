@@ -4,7 +4,7 @@ description: Ingest a source (URL, file path, or pasted content) into the user's
 user-invocable: true
 ---
 
-# /ingest
+# /jds:ingest
 
 Ingest a new source into the wiki. The argument can be a URL, an absolute or relative file path, or a path already inside the wiki's `raw/`. You handle retrieval and filing — the user doesn't have to pre-stage anything.
 
@@ -91,7 +91,7 @@ A single closing message listing every file you created or modified, with a one-
 
 ## Batch mode: `--batch`
 
-If invoked as `/ingest --batch <args...>`:
+If invoked as `/jds:ingest --batch <args...>`:
 
 - Skip step 5 (the discussion).
 - Still do step 6 (propose diffs) — auto-approval is too risky.

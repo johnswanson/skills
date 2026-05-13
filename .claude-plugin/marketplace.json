@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "jds",
+  "metadata": {
+    "description": "Personal skills for the jds-wiki pattern."
+  },
+  "owner": {
+    "name": "John Swanson"
+  },
+  "plugins": [
+    {
+      "name": "jds",
+      "description": "Personal skills for the jds-wiki pattern — an LLM-maintained personal wiki. Includes /ingest, /lint, and /ask.",
+      "version": "0.1.0",
+      "source": "./"
+    }
+  ]
+}

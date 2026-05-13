@@ -4,7 +4,7 @@ description: Ask a question against the user's wiki. Reads the wiki's index, ope
 user-invocable: true
 ---
 
-# /ask
+# /jds:ask
 
 Answer a question by reading the user's wiki — not by recalling from memory or searching the web. The argument is a free-form question.
 
@@ -35,7 +35,7 @@ If the index doesn't obviously cover the question, scan `$WIKI/log.md` for recen
 
 Read the pages you identified. Be willing to open more if the first batch points elsewhere. Stop when you have enough to answer — don't read the whole wiki.
 
-If the wiki genuinely doesn't have the answer, say so directly. **Do not fall back to web search or memory unless the user explicitly asks** — the value of `/ask` is that it answers from the wiki. Offer one of:
+If the wiki genuinely doesn't have the answer, say so directly. **Do not fall back to web search or memory unless the user explicitly asks** — the value of `/jds:ask` is that it answers from the wiki. Offer one of:
 
 - "Not in the wiki — want me to ingest a source about it?"
 - "Not in the wiki — want me to answer from general knowledge instead?"

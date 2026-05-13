@@ -4,7 +4,7 @@ description: Health-check the user's wiki — find contradictions, orphans, miss
 user-invocable: true
 ---
 
-# /lint
+# /jds:lint
 
 Read-only health check on the wiki. Produces a report shown in chat and appended to the wiki's `log.md`. Does NOT auto-fix.
 
