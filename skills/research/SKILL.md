@@ -38,7 +38,7 @@ Don't grep yourself for things the agents are already chasing. Wait for all agen
 
 ## Step 3: Read the load-bearing files
 
-From the agents' returns, identify the small set of files that actually need to be opened (in full or in large chunks) to ground the answer. Read them with the `Read` tool. The answer almost always lives in 3-10 files — resist reading the whole repo.
+From the agents' returns, identify the small set of files that actually need to be opened (in full or in large chunks) to ground the answer. Read them with the `Read` tool.
 
 If a facet came back thin (agent couldn't find much), say so in the synthesis rather than papering over it with general knowledge.
 
@@ -60,14 +60,12 @@ End the chat response with a single short offer:
 
 > Want me to file this as a wiki page? I'd suggest `<title>` under `<section>`.
 
-If the user says yes, hand the synthesis to `/jds:ingest` as pasted content (the user will be prompted for a title there) — that path already knows how to write into the wiki, update `index.md`, and append to `log.md`. Don't write to the wiki directly from this skill.
+If the user says yes, hand the synthesis to `/jds:ingest` as pasted content (the user will be prompted for a title there).
 
 If the user says no, do nothing — the chat output is the deliverable.
 
 ## Edge cases
 
-- **Question is really a wiki question, not a code question** (e.g. "what's our retention policy?"): redirect to `/jds:ask` instead of investigating the codebase.
-- **Codebase is huge / monorepo**: still spawn one Explore per facet, but bias the agent prompts toward narrower paths the user hinted at. If no hints, ask before fanning out.
 - **Agents return contradictory or partial info**: surface the contradiction in the synthesis rather than picking one silently. A footnote like "*two code paths exist; the older one in `lib/legacy/` may be unused — flagged for confirmation*" is fine.
 - **The user follows up with a refinement** ("now dig into X"): re-run from step 2 with the narrower facets. Don't re-investigate what you already know.
 

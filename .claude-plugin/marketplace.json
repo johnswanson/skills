@@ -10,8 +10,8 @@
   "plugins": [
     {
       "name": "jds",
-      "description": "Personal skills for the jds-wiki pattern — an LLM-maintained personal wiki. Includes /ingest, /lint, /ask, and /research.",
-      "version": "0.1.0",
+      "description": "Personal skills: the jds-wiki pattern (/ingest, /lint, /ask, /research) plus a local-only deep code-review pipeline (/review, /fix, /walkthrough, /promote, /add).",
+      "version": "0.3.0",
       "source": "./"
     }
   ]

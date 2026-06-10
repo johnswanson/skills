@@ -66,38 +66,13 @@ Output a short summary of the source (3-8 bullets), then call out:
 
 **Stop here and wait for the user's input.** Do not proceed until they've responded with guidance on emphasis, what to keep/skip, and which pages to update.
 
-### 6. Propose the diffs (PAUSE)
-
-Based on the discussion, lay out a concrete plan:
-
-- New summary page (or new concept page): name, location, headings, frontmatter.
-- For each existing page to update: a brief description of the change — not the full text.
-- Index update: which section, what the new line says.
-- Log entry: the exact line.
-
-**Wait for the user to approve or revise.** Then proceed.
-
-### 7. Apply the changes
+### 6. Apply the changes
 
 - Create new pages with proper frontmatter (`tags`, `sources: [raw/<file>]`, `updated: <today>`).
 - Update existing pages. Append to existing `sources` lists; bump `updated` when present. Don't add frontmatter to pages that don't already have it unless the user OKs.
 - Add wikilinks where concepts appear.
 - Update `$WIKI/index.md`.
 - Prepend a new entry to `$WIKI/log.md` (newest first), op = `ingest`.
-
-### 8. Report
-
-A single closing message listing every file you created or modified, with a one-line note each. Flag anything you skipped or punted.
-
-## Batch mode: `--batch`
-
-If invoked as `/jds:ingest --batch <args...>`:
-
-- Skip step 5 (the discussion).
-- Still do step 6 (propose diffs) — auto-approval is too risky.
-- Compress step 8 into a single per-source summary.
-
-Use batch only when the user has explicitly asked for bulk loading.
 
 ## Edge cases
 
@@ -108,8 +83,7 @@ Use batch only when the user has explicitly asked for bulk loading.
 
 ## Things NOT to do
 
-- Don't modify any file outside `$WIKI/` (except staging into `$WIKI/raw/`).
-- Don't touch `$WIKI/current-work/` if it exists — that's working memory, not wiki.
+- Don't modify any file outside `$WIKI/`
 - Don't bulk-rename existing pages for style consistency.
 - Don't silently invent wikilinks to pages that don't exist. If a concept seems load-bearing and needs its own page, surface it as a "new pages worth creating" suggestion in step 5.
 - Don't auto-resolve contradictions. Always ask.
