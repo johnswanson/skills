@@ -11,6 +11,10 @@ Currently focused on the **jds-wiki** pattern (an LLM-maintained personal wiki).
 
 The wiki-touching skills resolve the wiki path from `~/.config/jds-wiki/config.yml` (single field: `wiki: <path>`). Default if missing: `~/Obsidian/Wiki`.
 
+## Issue workflow
+
+- **`jds:grab-issue`** — `/jds:grab-issue [issue-or-guidance]` — pick up an issue from the current project's tracker and work it end-to-end: plan via the `grill-with-docs` skill, implement via the `tdd` skill, then mark the issue done and commit. Follows whatever issue-tracker conventions the project documents (e.g. `docs/agents/issue-tracker.md`); expects `grill-with-docs` and `tdd` to be installed on the machine.
+
 ## Code review
 
 A local-only port of the [adamsreview](https://github.com/adamjgmiller/adamsreview) pipeline:
@@ -75,7 +79,8 @@ skills/                       # repo root
     ├── ingest/SKILL.md
     ├── lint/SKILL.md
     ├── ask/SKILL.md
-    └── research/SKILL.md
+    ├── research/SKILL.md
+    └── grab-issue/SKILL.md
 ```
 
 Each folder under `skills/` containing a `SKILL.md` becomes a skill in the `jds:` namespace.
