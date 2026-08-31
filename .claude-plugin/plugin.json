@@ -1,7 +1,7 @@
 {
   "name": "jds",
-  "description": "Personal skills: the jds-wiki pattern (/ingest, /lint, /ask, /research), a local-only deep code-review pipeline (/review, /fix, /walkthrough, /promote, /add), an issue workflow (/grab-issue), and an MBQL introspection reviewer (/mbql-dictator).",
-  "version": "0.5.0",
+  "description": "Personal skills: a local-only deep code-review pipeline (/review, /fix, /walkthrough, /promote, /add), a PR splitter (/split-pr), an issue-tracker frontier router (/frontier), and an MBQL introspection reviewer (/mbql-dictator).",
+  "version": "0.6.0",
   "author": {
     "name": "John Swanson"
   }
