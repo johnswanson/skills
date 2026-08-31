@@ -1,0 +1,5 @@
+interface:
+  display_name: "Stage"
+  short_description: "Implement, adversarially review, and stage an issue for inspection"
+policy:
+  allow_implicit_invocation: false
