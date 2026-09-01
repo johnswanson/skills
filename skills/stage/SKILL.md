@@ -8,7 +8,7 @@ Implement the issue the user names, then stage it for their inspection. The merg
 
 1. **Worktree.** Create a worktree on a fresh ticket branch off main. Copy in what makes it runnable but isn't versioned (env files; install deps if absent).
 
-2. **Implement** with a subagent on Opus, working only in the worktree. Brief it with the issue, the relevant PRD/ADRs/context docs, and key file pointers. Its instructions: use /tdd where possible, at pre-agreed seams; run typechecking and single test files regularly, the full suite once at the end; commit to the branch. Done when every acceptance criterion is addressed and the suites are green.
+2. **Implement.** Set the issue's Status to `in-progress` first — `docs/agents/issue-tracker.md` says where issues live and how to write them. Then a subagent on Opus, working only in the worktree. Brief it with the issue, the relevant PRD/ADRs/context docs, and key file pointers. Its instructions: use /tdd where possible, at pre-agreed seams; run typechecking and single test files regularly, the full suite once at the end; commit to the branch. Done when every acceptance criterion is addressed and the suites are green.
 
 3. **Review** with /code-review in a separate agent on Fable, briefed to be adversarial: hunt real defects, spec violations, and weak or vacuous tests; press hardest on any design call the implementer made beyond the spec. Report only — findings ranked, each confirmed or plausible; fix nothing.
 
