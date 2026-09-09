@@ -13,7 +13,8 @@ The wiki-touching skills resolve the wiki path from `~/.config/jds-wiki/config.y
 
 ## Issue workflow
 
-- **`jds:grab-issue`** — `/jds:grab-issue [issue-or-guidance]` — pick up an issue from the current project's tracker and work it end-to-end: plan via the `grill-with-docs` skill, implement via the `tdd` skill, then mark the issue done and commit. Follows whatever issue-tracker conventions the project documents (e.g. `docs/agents/issue-tracker.md`); expects `grill-with-docs` and `tdd` to be installed on the machine.
+- **`jds:stage`** — `/jds:stage <issue>... [--onto <branch>]` — implement an issue in a worktree through subagents, adversarially review it, and stage it running for inspection before merge.
+- **`jds:frontier`** — `/jds:frontier` — find the issue tracker's frontier issue — the first unblocked, non-terminal ticket in shipping order — and route it to the right next move.
 
 ## Code review
 
@@ -34,6 +35,12 @@ Differences from the original:
 - **Fable instead of Opus** for the deep subagents (L2/L7 lenses, deep-lane validators, cross-cutting); Sonnet/Haiku subagents unchanged. Override the deep-lane model with `JDS_REVIEW_HIGH_MODEL` (`fable` | `opus` | `sonnet` | `haiku`, default `fable`).
 
 (The supporting `fragments/` and `bin/` directories at the repo root belong to these commands; the plugin runtime puts `bin/` on `$PATH` automatically. The original's `codex-review` command and Codex CLI integration were not ported.)
+
+## Other skills
+
+- **`jds:split-pr`** — `/jds:split-pr` — break a very large pull request into a stack of small, independently-reviewable vertical slices whose cumulative diff is byte-identical to the original PR.
+- **`jds:mbql-dictator`** — `/jds:mbql-dictator` — review a Clojure/ClojureScript diff for MBQL introspection: queries, clauses, refs, and column metadata may only be inspected or built through the public Lib API, never by digging into query data outside of Lib or the QP.
+- **`jds:simplified`** — `/jds:simplified` — explain the provided input, or the last message in the conversation, in ASD-STE100 Simplified Technical English, with a little context.
 
 ## Bootstrap on a new machine
 
@@ -76,11 +83,11 @@ skills/                       # repo root
 ├── fragments/                # review phase fragments + lens prompts
 ├── bin/                      # review helper scripts (auto on $PATH)
 └── skills/                   # default skills directory
-    ├── ingest/SKILL.md
-    ├── lint/SKILL.md
-    ├── ask/SKILL.md
-    ├── research/SKILL.md
-    └── grab-issue/SKILL.md
+    ├── stage/                # SKILL.md + brief-implementer.md, brief-reviewer.md, waves.md
+    ├── frontier/SKILL.md
+    ├── split-pr/             # SKILL.md + REFERENCE.md, scripts/
+    ├── mbql-dictator/        # SKILL.md + PATTERNS.md
+    └── simplified/SKILL.md
 ```
 
 Each folder under `skills/` containing a `SKILL.md` becomes a skill in the `jds:` namespace.
