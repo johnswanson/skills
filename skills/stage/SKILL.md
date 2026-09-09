@@ -15,10 +15,8 @@ has looked and said so.
 
 2. **Implement.** Set the issue's Status to `in-progress` first, according to
    the project's documented issue tracker. Then a subagent on Opus, working
-   only in the worktree, briefed from `brief-implementer.md` in this skill's
-   directory — filled in with the issue, the relevant PRD/ADRs/context docs,
-   and key file pointers. Done when every acceptance criterion is addressed and
-   the suites are green.
+   only in the worktree, does the implementation. Done when every acceptance
+   criterion is addressed and the suites are green.
 
 3. **Review** with /code-review in a separate agent on Fable, briefed from
    `brief-reviewer.md` in this skill's directory — adversarial: hunt real
