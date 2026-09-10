@@ -24,10 +24,9 @@ has looked and said so.
    design call the implementer made beyond the spec. Report only — findings
    ranked, each confirmed or plausible; fix nothing.
 
-4. **Fix** each finding worth acting on with an Opus subagent, or by resuming
-   the original implementer. Decide fix-vs-no-action yourself and say why. Done
-   when every finding is fixed or explicitly declined and the suites are green
-   again.
+4. **Fix** each finding worth acting on by resuming the original implementer.
+   Decide fix-vs-no-action yourself and say why. Done when every finding is
+   fixed or explicitly declined and the suites are green again.
 
 5. **Stage.** Set the issue's Status to `in-review` and append a comment:
    branch, commits, design calls, review outcome. If there is a documented
@@ -40,7 +39,9 @@ has looked and said so.
    and branch, set the issue's Status to done and tick its boxes. On change
    requests: back to step 4.
 
-Given more than one issue, or an `--onto <integration-branch>` argument, follow
-`waves.md` instead: worktrees branch off the integration branch rather than
-main, merges land there, cleanup happens per issue as soon as it merges, and
-staging happens once at the end rather than per issue.
+Given more than one issue in a single invocation, act as if you had been given
+multiple sequential `/stage` invocations, with one exception: merge them each
+(linearly) onto a fresh branch in a separate worktree after step 4, then stage
+them and head to the user for a verdict on all of the issues at once. In other
+words, fan out steps 1-4, and then consolidate into one worktree for steps 5
+and 6.

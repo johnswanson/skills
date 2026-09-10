@@ -83,7 +83,7 @@ skills/                       # repo root
 ├── fragments/                # review phase fragments + lens prompts
 ├── bin/                      # review helper scripts (auto on $PATH)
 └── skills/                   # default skills directory
-    ├── stage/                # SKILL.md + brief-implementer.md, brief-reviewer.md, waves.md
+    ├── stage/                # SKILL.md + brief-reviewer.md, agents/
     ├── frontier/SKILL.md
     ├── split-pr/             # SKILL.md + REFERENCE.md, scripts/
     ├── mbql-dictator/        # SKILL.md + PATTERNS.md
