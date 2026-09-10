@@ -11,7 +11,7 @@ has looked and said so.
 1. **Worktree.** Create a worktree on a fresh ticket branch off main. Run the
    project's documented worktree setup, if it has one — its `CLAUDE.md` or
    `CLAUDE.local.md` says where. Only then copy in what makes it runnable but
-   isn't versioned (env files; install deps if absent).
+   isn't versioned (env files; install deps if absent; CLAUDE.local.md itself).
 
 2. **Implement.** Set the issue's Status to `in-progress` first, according to
    the project's documented issue tracker. Then a subagent on Opus, working
