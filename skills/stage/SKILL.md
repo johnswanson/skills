@@ -20,7 +20,7 @@ When passed a single issue, the flow looks like this:
    only in the worktree, does the implementation. Done when every acceptance
    criterion is addressed and the suites are green.
 
-3. **Review** with /code-review in a separate agent on Fable, briefed from
+3. **Review** with /code-review in a separate agent on Opus, briefed from
    `brief-reviewer.md` in this skill's directory — adversarial: hunt real
    defects, spec violations, and weak or vacuous tests; press hardest on any
    design call the implementer made beyond the spec. Report only — findings
