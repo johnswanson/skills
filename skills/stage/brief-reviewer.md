@@ -1,16 +1,13 @@
 # Brief: adversarial reviewer
 
 Template for step 3 of `stage`. Fill the `{braces}`, then paste everything below the rule
-into the reviewer subagent's prompt. Fable, report-only, one reviewer per issue.
+into the reviewer subagent's prompt. Opus, report-only, one reviewer per issue.
 
 - `{issue}` — issue ref and its body verbatim, acceptance criteria as a numbered list.
-- `{worktree}` — absolute path to the worktree. Never tell the reviewer to enter it; a
-  subagent with a pinned cwd cannot, and absolute paths work everywhere.
+- `{worktree}` — absolute path to the worktree.
 - `{base}` — the ref the branch left, for `git -C {worktree} diff {base}...HEAD`.
-- `{implementer-report}` — the implementer's final report pasted whole, evidence table
-  included. Attach it; do not summarise it.
-- `{worktree-recipe}` — the project's worktree recipe: test-wrapper paths, every app DB the machine
-  can reach and the command for each, and anything that must not be run bare.
+- `{implementer-report}` — the implementer's final report, pasted whole,
+  evidence table included. Attach it; do not summarise it.
 
 ---
 
