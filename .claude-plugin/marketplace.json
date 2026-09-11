@@ -11,7 +11,7 @@
     {
       "name": "jds",
       "description": "Personal skills: a local-only deep code-review pipeline (/review, /fix, /walkthrough, /promote, /add), a PR splitter (/split-pr), an issue-tracker frontier router (/frontier), and an MBQL introspection reviewer (/mbql-dictator).",
-      "version": "0.8.1",
+      "version": "0.8.2",
       "source": "./"
     }
   ]

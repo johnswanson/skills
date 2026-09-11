@@ -19,6 +19,8 @@ has looked and said so.
 
        workmux add <issue-id> -a opus -b -P <prompt-file>
 
+   `issue-id` means the whole `project/number` slug, e.g. `foo/123`.
+
    Add `--base <branch>` when the user passed `--onto <branch>`. The handle is
    the issue id; every later command addresses the agent by it. The agent's
    prompt carries the issue ref and body verbatim, the acceptance criteria as a
