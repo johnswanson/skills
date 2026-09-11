@@ -8,6 +8,8 @@ Implement the issue the user names, then stage it for their inspection. The
 merge is gated: nothing lands on main and the issue is not done until the user
 has looked and said so.
 
+When passed a single issue, the flow looks like this:
+
 1. **Worktree.** Create a worktree on a fresh ticket branch off main. Run the
    project's documented worktree setup, if it has one — its `CLAUDE.md` or
    `CLAUDE.local.md` says where. Only then copy in what makes it runnable but
@@ -39,9 +41,15 @@ has looked and said so.
    and branch, set the issue's Status to done and tick its boxes. On change
    requests: back to step 4.
 
-Given more than one issue in a single invocation, act as if you had been given
-multiple sequential `/stage` invocations, with one exception: merge them each
-(linearly) onto a fresh branch in a separate worktree after step 4, then stage
-them and head to the user for a verdict on all of the issues at once. In other
-words, fan out steps 1-4, and then consolidate into one worktree for steps 5
-and 6.
+When passed multiple issues in a single invocation, act as if you had been
+given multiple sequential `/stage` invocations, with one exception: merge them
+each (linearly) onto a fresh branch in a separate worktree after step 4, then
+stage them and head to the user for a verdict on all of the issues at once. In
+other words, fan out steps 1-4, and then consolidate into one worktree for
+steps 5 and 6.
+
+If on the other hand the user invokes `/stage` multiple times, run steps 1-6 on
+each independently, in parallel, resulting in N different worktrees and N
+different branches. Note that in some cases issues may be blocked by each
+other; in this case, you may need to wait until issue N is Staged before
+starting issue N+1, branching off of issue N's branch.
