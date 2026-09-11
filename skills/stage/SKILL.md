@@ -8,10 +8,11 @@ Implement the issue the user names, then stage it for their inspection. The
 merge is gated: nothing lands on main and the issue is not done until the user
 has looked and said so.
 
-1. First, invoke the `/coordinator` skill unless it has been previously invoked
-   in this session. This will teach you how to manage agents using `workmux`
-   CLI commands. (If the coordinator skill is unavailable, it's not installed - abort
-   and tell the user to install workmux and its skills.)
+1. First, invoke both the `/workmux` skill and the `/coordinator` skill unless
+   they have been previously invoked in this session. This will teach you how
+   to manage agents using `workmux` CLI commands. (If either skill is
+   unavailable, workmux skills are not installed - abort and tell the user to
+   install workmux and its skills.)
 
 2. **Implement.** Set the issue's Status to `in-progress` first, according to
    the project's documented issue tracker. Then spawn the implementer using
