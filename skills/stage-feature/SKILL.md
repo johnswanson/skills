@@ -57,8 +57,10 @@ until the user has looked and said so.
 6. Set the issue's Status to `in-review` and append a comment: integration
    branch, commits, design calls.
 
-7. Return to step 2 and find the next unblocked issue; repeat until there are
-   no remaining `ready-for-agent` issues left in the feature.
+7. Return to step 2 and find the next available issue; repeat until there are
+   no remaining `ready-for-agent` issues left in the feature. Note that "available" here
+   means either "unblocked" or "blocked only by issues that are already merged into
+   the integration branch."
 
 8. **Stage.** If there is a documented method to do so, start the dev server
    in the worktree running the integration branch and hand the user the URL.
