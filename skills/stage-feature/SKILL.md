@@ -1,6 +1,6 @@
 ---
 name: stage-feature
-description: "Implement a feature in a worktree through workmux agents, adversarially review each, and stage the final product running for inspection before merge."
+description: "Implement a feature in a worktree through Herdr-managed agents, adversarially review each, and stage the final product running for inspection before merge."
 disable-model-invocation: true
 ---
 
@@ -8,51 +8,70 @@ Implement the feature the user names, then stage the result for their
 inspection. The merge is gated: nothing lands on main and the issue is not done
 until the user has looked and said so.
 
-1. First, make sure both `/workmux` and `/coordinator` have been previously invoked
-   in this session. If they have not, report back to the user and ask them to invoke both.
+Herdr command sequences live in `herdr-recipes.md` in the `stage` skill's
+directory (a sibling of this one); the steps below refer to them by recipe
+name.
+
+1. First, make sure `/herdr` has been previously invoked in this session. It
+   teaches you the `herdr` CLI and requires that this agent is running inside
+   a Herdr-managed pane. If it has not been invoked, or its environment check
+   fails, report back to the user and ask them to invoke it from inside Herdr.
 
 2. Begin the implementation loop. Create an integration branch, mirroring the
-   main/master branch, and run a new workmux session for that integration branch
-   with no prompt.
+   default branch (`master` or `main`), as a Herdr worktree with no agent
+   started: only the `herdr worktree create` line of the **spawn** recipe,
+   with the feature name as the branch and the default branch as the base.
+   Keep its base, workspace id, root pane id, and worktree path.
 
    Now find the first issue in the feature that is unblocked and in
    `ready-for-agent` status according to the project's documented issue
    tracker. Mark it as `in-progress`.
 
-   Then spawn an implementer using `opus`:
+   Then spawn an implementer on `opus` using the full **spawn** recipe with
+   `--base <feature>`.
 
-       workmux add <issue-id> -a opus -b --base <feature> -P <prompt-file>
+   The branch follows the project's convention, defaulting to the issue id
+   (`foo/123`). The agent name is short and recognizable, as the recipes file
+   describes; every later agent command addresses that worker by its name.
+   Keep each worker's workspace id, root pane id, and worktree path from its
+   create response; the **recover identifiers** recipe finds them again if
+   lost.
 
-   `issue-id` means the whole `project/number` slug, e.g. the `issue-id` is `foo/123` not `123`.
+   The agent's prompt carries the issue ref and body verbatim, the acceptance
+   criteria as a numbered list, and these instructions: run the suites, commit
+   on the branch, and finish by writing a final report to a temporary file —
+   what was built, any design call beyond the spec, and an evidence table of
+   commands run with their results. It should then state the location of that
+   final report. After launching the agent, wait for it to finish using the
+   **wait and handle blocked** recipe. Done when every acceptance criterion is
+   addressed and the suites are green.
 
-   The handle is the `project/number` slug; every later command addresses the
-   agent by it. The agent's prompt carries the issue ref and body verbatim, the
-   acceptance criteria as a numbered list, and these instructions: run the
-   suites, commit on the branch, and finish by writing a final report to a
-   temporary file — what was built, any design call beyond the spec, and an
-   evidence table of commands run with their results. It should then state the
-   location of that final report. After launching the agent, wait for it to
-   finish. Done when every acceptance criterion is addressed and the suites are
-   green.
-
-   Note that you can start multiple issues in parallel, as long as they are unblocked.
+   You can start multiple issues in parallel, as long as they are unblocked.
+   Each gets its own worktree, workspace, and agent name. Herdr waits on one
+   agent at a time; wait on parallel workers one after another, since all of
+   them must finish anyway.
 
 3. **Review** with /code-review in a separate subagent on Opus, briefed from
    `brief-reviewer.md` in this skill's directory — adversarial: hunt real
    defects, spec violations, and weak or vacuous tests; press hardest on any
    design call the implementer made beyond the spec. Report only — findings
    ranked, each confirmed or plausible; fix nothing. The brief's inputs come
-   from the worker: the worktree path from `workmux path <handle>`, the base
-   from `git config branch.<branch>.workmux-base`, and the implementer report
-   from the temporary file the implementer created.
+   from the worker: the worktree path from the create response, the base
+   (the feature branch), and the implementer report from the temporary file
+   the implementer created.
 
 4. **Fix** each finding worth acting on as follow-up work in the original
-   worker session — `workmux send <handle> -f <followup-file>`, then wait for
-   it. Decide fix-vs-no-action yourself and say why. Have the worker refresh
-   its report when it is done. Done when every finding is fixed or explicitly
-   declined and the suites are green again.
+   worker session using the **follow-up** recipe, then wait for it. Decide
+   fix-vs-no-action yourself and say why. Have the worker refresh its report
+   when it is done. Done when every finding is fixed or explicitly declined and
+   the suites are green again.
 
-5. **Merge** to the integration branch using `workmux merge <handle>`.
+5. **Merge** to the integration branch using the **merge and clean up**
+   recipe, with one change: the fast-forward happens in the integration
+   branch's worktree, not the source checkout. Rebase the issue branch onto
+   the feature branch in the issue worktree, then in the integration worktree
+   run `git merge --ff-only <branch>`. Remove the issue worktree and delete
+   its branch as the recipe says.
 
 6. Set the issue's Status to `in-review` and append a comment: integration
    branch, commits, design calls.
@@ -63,9 +82,13 @@ until the user has looked and said so.
    the integration branch."
 
 8. **Stage.** If there is a documented method to do so, start the dev server
-   in the worktree running the integration branch and hand the user the URL.
+   in the integration branch's workspace using the **run a command in the
+   worker's workspace** recipe and hand the user the URL.
 
    Then stop and report - what was built, any design calls that deserve the user's eye.
 
-9. The verdict belongs to the user. If the user approves, merge the integration branch into the
-   recorded base branch using `workmux merge`. Mark all issues as `done`.
+9. The verdict belongs to the user. If the user approves, merge the integration
+   branch into the default branch using the **merge and clean up** recipe as
+   written: rebase in the integration worktree, fast-forward in the source
+   checkout, remove the integration worktree and its workspace, delete the
+   branch. Mark all issues as `done`.
