@@ -22,7 +22,7 @@ Abort if the session is not inside a git repository.
 
 - A PR link or number: `gh pr view <url|number> --json headRefName,url` gives the branch.
 - A named branch: use it as given.
-- Neither: coin a kebab-case name from the task, `git -C $REPO fetch origin`, and create it with `git -C $REPO branch <branch> origin/HEAD`. Skip the fetch and the ahead/behind check below; there is no remote branch yet.
+- Neither: coin a kebab-case name from the task, `git -C $REPO fetch origin`, and create it with `git -C $REPO branch <branch> origin/HEAD`. Instead of `origin/HEAD` you may use another branch if specified by the user, e.g. an integration branch. Skip the fetch and the ahead/behind check below; there is no remote branch yet.
 
 Fetch it: `git -C $REPO fetch origin <branch>`. `Permission denied (publickey)` means the SSH agent holds no key: ask the user to run `ssh-add`, then retry. This is the one place you stop for input.
 
