@@ -8,13 +8,21 @@ disable-model-invocation: true
 
 Fire and forget: set up a worktree and a Herdr workspace for the task in `$ARGUMENTS`, brief a fresh Claude agent there, and return to the user the moment the brief is submitted. The user works with that agent directly.
 
-Preflight: `test "${HERDR_ENV:-}" = 1` must pass, and load the `herdr` skill for CLI syntax. Every path below is absolute; the shell's cwd resets between calls. `REPO=/home/jds/work/metabase`.
+Preflight: `test "${HERDR_ENV:-}" = 1` must pass, and load the `herdr` skill for CLI syntax. Every path below is absolute; the shell's cwd resets between calls.
+
+`REPO` is the main checkout of the repository the session is in, even when the session sits in one of its worktrees:
+
+```sh
+REPO=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
+```
+
+Abort if the session is not inside a git repository.
 
 ## 1. Resolve the branch
 
 - A PR link or number: `gh pr view <url|number> --json headRefName,url` gives the branch.
 - A named branch: use it as given.
-- Neither: coin a kebab-case name from the task. The hook in step 2 branches it from `origin/HEAD`, so `git -C $REPO fetch origin` first.
+- Neither: coin a kebab-case name from the task, `git -C $REPO fetch origin`, and create it with `git -C $REPO branch <branch> origin/HEAD`. Skip the fetch and the ahead/behind check below; there is no remote branch yet.
 
 Fetch it: `git -C $REPO fetch origin <branch>`. `Permission denied (publickey)` means the SSH agent holds no key: ask the user to run `ssh-add`, then retry. This is the one place you stop for input.
 
@@ -27,13 +35,25 @@ Done when `origin/<branch>` is fresh and `refs/heads/<branch>` exists.
 
 ## 2. Worktree
 
-An existing checkout wins: if `git -C $REPO worktree list --porcelain` already shows the branch, that path is the worktree (git refuses a second checkout of one branch). Otherwise create it through the Claude WorktreeCreate hook, which owns the location (`~/work/worktrees/<branch>`) and the setup symlinks (`bin/bb`, `CLAUDE.local.md`, `.claude/settings.local.json`); the last line of its stdout is the path:
+An existing checkout wins: if `git -C $REPO worktree list --porcelain` already shows the branch, that path is the worktree (git refuses a second checkout of one branch). Otherwise create it the way `claude --worktree` would under the active Claude config, which differs between the work and personal setups. Look for a WorktreeCreate hook in that config:
 
 ```sh
-printf '{"name":"%s","cwd":"%s"}' "<branch>" "$REPO" | /home/jds/.claude-work/hooks/worktree-create.sh
+HOOK=$(jq -r '.hooks.WorktreeCreate[]?.hooks[]?.command // empty' "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/settings.json" 2>/dev/null | head -1)
 ```
 
-The hook checks out the local branch from step 1 when it exists, so step 1 comes first. A behind-only branch fast-forwards with `git -C <path> merge --ff-only origin/<branch>`.
+- Hook present: it owns the location and any per-repo setup (symlinked local Claude files, tool shims), and the last line of its stdout is the path:
+
+  ```sh
+  printf '{"name":"%s","cwd":"%s"}' "<branch>" "$REPO" | "$HOOK"
+  ```
+
+- No hook: use Claude's default location, `$REPO/.claude/worktrees/<branch>`:
+
+  ```sh
+  git -C $REPO worktree add "$REPO/.claude/worktrees/<branch>" <branch>
+  ```
+
+Both paths check out the local branch from step 1, so step 1 comes first. A behind-only branch fast-forwards with `git -C <path> merge --ff-only origin/<branch>`.
 
 Done when `git -C <path> status --short` is empty and `git -C <path> rev-parse --abbrev-ref HEAD` prints the branch.
 
@@ -67,7 +87,7 @@ The brief carries, in this order, and nothing else:
 2. Branch state worth knowing: at origin's tip, or the unpushed commits by hash and subject.
 3. The user's task, verbatim.
 
-House rules (pushing and PR comments only when told, test wrappers, dev env) reach the agent through the worktree's symlinked `CLAUDE.local.md`, so the brief leaves them out.
+House rules (pushing and PR comments only when told, test wrappers, dev env) reach the agent through the repo's own Claude instructions and whatever the worktree hook links in, so the brief leaves them out.
 
 ## 5. Return
 
