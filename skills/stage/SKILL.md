@@ -38,14 +38,23 @@ the steps below refer to them by recipe name.
    **wait and handle blocked** recipe. Done when every acceptance criterion is
    addressed and the suites are green.
 
-3. **Review** with /code-review in a separate subagent on Opus, briefed from
-   `brief-reviewer.md` in this skill's directory — adversarial: hunt real
-   defects, spec violations, and weak or vacuous tests; press hardest on any
-   design call the implementer made beyond the spec. Report only — findings
-   ranked, each confirmed or plausible; fix nothing. The brief's inputs come
-   from the worker: the worktree path from the create response, the base
-   from step 2, and the implementer report from the temporary file the
-   implementer created.
+3. **Review.** Invoke the `/code-review` skill (`mattpocock-skills:code-review`)
+   with these inputs:
+
+   - the fixed point: the base from step 2;
+   - the changes: branch `<branch>` checked out in the worktree at `<path>`,
+     so every git command runs with `-C <path>`;
+   - the spec: the issue ref and body verbatim with the acceptance criteria
+     as a numbered list, written to a temporary file and passed as the spec
+     path;
+   - and this one instruction: launch each sub-agent as a Herdr agent in its
+     own pane using the **reviewer pane** recipe in `herdr-recipes.md`, not
+     as a native subagent.
+
+   Then run every lens in `review-lenses.md` in this skill's directory the
+   same way, each as its own reviewer pane, and present its findings under
+   the lens's own heading after the Standards and Spec reports. Reviewers
+   report only; nothing is fixed in this step.
 
 4. **Fix** each finding worth acting on as follow-up work in the original
    worker session using the **follow-up** recipe, then wait for it. Decide

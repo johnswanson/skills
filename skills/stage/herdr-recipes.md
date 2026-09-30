@@ -67,6 +67,39 @@ implementation work; it is indefinite. On return, check
 A wait that returns `timeout` or `agent_prompt_stalled` does not prove the
 prompt was lost. Read the pane before deciding whether to resend.
 
+## Recipe: reviewer pane
+
+Every reviewer — each sub-agent `/code-review` would normally spawn natively,
+and each lens from `review-lenses.md` — runs as its own Herdr agent in a pane
+inside the worker's worktree. It shares the checkout but none of the worker's
+context. The worker must be idle and must stay idle until every reviewer has
+finished: do not send follow-up work while they share the tree.
+
+    herdr pane split <root-pane-id> --direction right --cwd <path> --no-focus
+    herdr agent start <reviewer> --kind claude --pane <new-pane-id> -- --model opus --permission-mode auto
+    herdr agent prompt <reviewer> "$(cat <prompt-file>)" --wait
+
+`<reviewer>` follows the same naming rule as `<agent>`: the issue number plus
+the reviewer's role, like `123-standards`, `123-spec`, or `123-<lens>`.
+`<prompt-file>` holds the reviewer's brief exactly as `/code-review` or the
+lens specifies it, plus this closing instruction:
+
+> Report only: fix nothing, commit nothing, and revert any change you make
+> to test a claim. When done, write the full report to a temporary file and
+> reply with only that file's path.
+
+Read the reply with `herdr agent read <reviewer> --source recent-unwrapped
+--lines 40`, then read the file. Handle `blocked` as in the wait recipe.
+
+Reviewers may run in parallel: split each new pane from the previous
+reviewer's pane, alternating `right` and `down` so no pane gets unusably
+small, start them all, then wait on them one after another.
+
+Close each reviewer's pane once its report is in hand; a re-review after
+fixes starts fresh ones:
+
+    herdr pane close <new-pane-id>
+
 ## Recipe: follow-up
 
 Confirm the agent is not blocked, then prompt it again the same way:
