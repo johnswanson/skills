@@ -15,6 +15,7 @@ The wiki-touching skills resolve the wiki path from `~/.config/jds-wiki/config.y
 
 - **`jds:stage`** — `/jds:stage <issue>... [--onto <branch>]` — implement an issue in a worktree through subagents, adversarially review it, and stage it running for inspection before merge.
 - **`jds:frontier`** — `/jds:frontier` — find the issue tracker's frontier issue — the first unblocked, non-terminal ticket in shipping order — and route it to the right next move.
+- **`jds:workspace`** — `/jds:workspace <task naming a branch or PR>` — open a branch or PR in its own worktree and Herdr workspace, start a Claude agent there, hand it the task, and return.
 
 ## Code review
 
@@ -85,6 +86,7 @@ skills/                       # repo root
 └── skills/                   # default skills directory
     ├── stage/                # SKILL.md + herdr-recipes.md + review-lenses.md, agents/
     ├── frontier/SKILL.md
+    ├── workspace/SKILL.md
     ├── split-pr/             # SKILL.md + REFERENCE.md, scripts/
     ├── mbql-dictator/        # SKILL.md + PATTERNS.md
     └── simplified/SKILL.md
