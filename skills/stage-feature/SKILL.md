@@ -64,10 +64,12 @@ name.
      own pane using the **reviewer pane** recipe in `herdr-recipes.md`, not
      as a native subagent.
 
-   Then run every lens in `review-lenses.md` in the `stage` skill's directory the
-   same way, each as its own reviewer pane, and present its findings under
-   the lens's own heading after the Standards and Spec reports. Reviewers
-   report only; nothing is fixed in this step.
+   Then run every lens the same way, each as its own reviewer pane: the
+   global lenses in `review-lenses.md` in the `stage` skill's directory, and the
+   repo's own in `.claude/review-lenses.md` at the root of the source
+   checkout, if that file exists. Present each lens's findings under its own
+   heading after the Standards and Spec reports. Reviewers report only;
+   nothing is fixed in this step.
 
 4. **Fix** each finding worth acting on as follow-up work in the original
    worker session using the **follow-up** recipe, then wait for it. Decide
