@@ -29,14 +29,22 @@ the steps below refer to them by recipe name.
    id, and worktree path from the create response; the **recover
    identifiers** recipe finds the ids again if they are lost.
 
-   The agent's prompt carries the issue ref and body verbatim, the acceptance
-   criteria as a numbered list, and these instructions: run the suites, commit
-   on the branch, and finish by writing a final report to a temporary file —
-   what was built, any design call beyond the spec, and an evidence table of
-   commands run with their results. It should then state the location of that
-   final report. After launching the agent, wait for it to finish using the
-   **wait and handle blocked** recipe. Done when every acceptance criterion is
-   addressed and the suites are green.
+   The agent's prompt should be the following:
+
+   ```
+   Implement the work described by `<issue id>`
+
+   Use /tdd where possible, at pre-agreed seams.
+
+   Run typechecking regularly, single test files regularly, and the full test suite once at the end.
+
+   Once done, use /code-review to review the work.
+
+   Commit your work to the current branch.
+   ```
+
+   After launching the agent, wait for it to finish using the
+   **wait and handle blocked** recipe.
 
 3. **Review.** Invoke the `/code-review` skill (`mattpocock-skills:code-review`)
    with these inputs:
