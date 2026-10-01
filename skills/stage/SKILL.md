@@ -38,7 +38,13 @@ the steps below refer to them by recipe name.
 
    Run typechecking regularly, single test files regularly, and the full test suite once at the end.
 
-   Once done, use /code-review to review the work.
+   Once done, review the code in two ways:
+   - use /code-review, with the additional instruction to launch each sub-agent as a herdr agent in its own pane, using
+     the **reviewer pane** recipe in `herdr-recipes.md` (not a native subagent).
+   - read `review-lenses.md` in this skill's directory, and the repo's own (if it exists) in `.claude/review-lenses.md`.
+     Launch a reviewer for each lens, again, as a herdr agent in its own pane.
+
+   Use your best judgment about which findings to fix. Run the full test suite after any substantive fixes.
 
    Commit your work to the current branch.
    ```
@@ -46,40 +52,14 @@ the steps below refer to them by recipe name.
    After launching the agent, wait for it to finish using the
    **wait and handle blocked** recipe.
 
-3. **Review.** Invoke the `/code-review` skill (`mattpocock-skills:code-review`)
-   with these inputs:
-
-   - the fixed point: the base from step 2;
-   - the changes: branch `<branch>` checked out in the worktree at `<path>`,
-     so every git command runs with `-C <path>`;
-   - the spec: the issue ref and body verbatim with the acceptance criteria
-     as a numbered list, written to a temporary file and passed as the spec
-     path;
-   - and this one instruction: launch each sub-agent as a Herdr agent in its
-     own pane using the **reviewer pane** recipe in `herdr-recipes.md`, not
-     as a native subagent.
-
-   Then run every lens the same way, each as its own reviewer pane: the
-   global lenses in `review-lenses.md` in this skill's directory, and the
-   repo's own in `.claude/review-lenses.md` at the root of the source
-   checkout, if that file exists. Present each lens's findings under its own
-   heading after the Standards and Spec reports. Reviewers report only;
-   nothing is fixed in this step.
-
-4. **Fix** each finding worth acting on as follow-up work in the original
-   worker session using the **follow-up** recipe, then wait for it. Decide
-   fix-vs-no-action yourself and say why. Have the worker refresh its report
-   when it is done. Done when every finding is fixed or explicitly declined and
-   the suites are green again.
-
-5. **Stage.** Set the issue's Status to `in-review` and append a comment:
+3. **Stage.** Set the issue's Status to `in-review` and append a comment:
    branch, commits, design calls, review outcome. If there is a documented
    method to do so, start the dev server in the worker's workspace using the
    **run a command in the worker's workspace** recipe and hand the user the
    URL. Then stop and report — what was built, what the review found, and any
    design call that deserves their eye.
 
-6. **The verdict is theirs.** On approval, follow the **merge and clean up**
+4. **The verdict is theirs.** On approval, follow the **merge and clean up**
    recipe. It rebases onto the branch's base — the default branch, or the
    `--onto` branch — fast-forwards that base in the source checkout, removes the
    worktree and its workspace, and deletes the branch; note that it leaves the
