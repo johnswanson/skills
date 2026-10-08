@@ -11,7 +11,7 @@
     {
       "name": "jds",
       "description": "Personal skills: an issue-tracker frontier router (/frontier), a worktree stager (/stage), a PR splitter (/split-pr), an MBQL introspection reviewer (/mbql-dictator), and a Simplified Technical English explainer (/simplified).",
-      "version": "0.8.15",
+      "version": "0.8.16",
       "source": "./"
     }
   ]

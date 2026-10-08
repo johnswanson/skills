@@ -53,10 +53,15 @@ then return not-ready while Claude is already working.
 
 `--wait` (on `prompt` or standalone `agent wait <agent>`) returns on the first
 settled `idle`, `done`, or `blocked` state. Leave the timeout off for
-implementation work; it is indefinite. On return, check
+implementation work; it is indefinite.
+
+A worker's state describes its own pane, not the work. The worker runs its
+reviewers as Herdr agents in sibling panes and sits `idle` while they run, so
+the first `idle` means "no foreground turn", not "finished". The worker is
+finished when it is `idle` or `done` **and** no other agent in its workspace
+is `working` or `blocked`. On each return, check
 `.result.agent.agent_status`:
 
-- `done` or `idle`: the turn is over. Read the report the agent named.
 - `blocked`: Herdr recognized an approval or question UI. Auto permissions
   make this rare, so it is usually a real question. Inspect it:
 
@@ -65,6 +70,25 @@ implementation work; it is indefinite. On return, check
   If the prompt itself already answers it, reply with `herdr agent send-keys
   <agent> <key>` (for example `enter`, or `down` then `enter`) and wait
   again. Otherwise stop and put the question to the user.
+- `done` or `idle`: list the workspace's agents:
+
+      herdr agent list    # .result.agents[] sharing the worker's workspace_id
+
+  If another agent there is `working` or `blocked`, wait on it the same way
+  (`herdr agent wait <reviewer>`), then wait on the worker again. If none
+  is, read the worker's last reply:
+
+      herdr agent read <agent> --source recent-unwrapped --lines 40
+
+  A reply naming its report means the worker is finished; read the report.
+  Anything else means the worker is between turns (a reviewer just
+  finished and it has not yet picked the result up): wait for it to resume,
+  then for it to settle, and check again:
+
+      herdr agent wait <agent> --until working
+      herdr agent wait <agent>
+
+Reviewers report and stop, so a reviewer's first settled state is final.
 
 A wait that returns `timeout` or `agent_prompt_stalled` does not prove the
 prompt was lost. Read the pane before deciding whether to resend.
