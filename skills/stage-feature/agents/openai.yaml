@@ -1,0 +1,5 @@
+interface:
+  display_name: "Stage feature"
+  short_description: "Implement, review, and merge each issue of a feature onto an integration branch, then stage it for inspection"
+policy:
+  allow_implicit_invocation: false

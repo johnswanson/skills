@@ -29,25 +29,10 @@ the steps below refer to them by recipe name.
    id, and worktree path from the create response; the **recover
    identifiers** recipe finds the ids again if they are lost.
 
-   The agent's prompt should be the following:
-
-   ```
-   Implement the work described by `<issue id>`
-
-   Use /tdd where possible, at pre-agreed seams.
-
-   Run typechecking regularly, single test files regularly, and the full test suite once at the end.
-
-   Once done, review the code in two ways:
-   - use /code-review, with the additional instruction to launch each sub-agent as a herdr agent in its own pane, using
-     the **reviewer pane** recipe in `herdr-recipes.md` (not a native subagent).
-   - read `review-lenses.md` in this skill's directory, and the repo's own (if it exists) in `.claude/review-lenses.md`.
-     Launch a reviewer for each lens, again, as a herdr agent in its own pane.
-
-   Use your best judgment about which findings to fix. Run the full test suite after any substantive fixes.
-
-   Commit your work to the current branch.
-   ```
+   The agent's prompt is `worker-prompt.md` in this skill's directory, with
+   `<issue id>`, `<stage dir>` (this skill's directory, absolute), and
+   `<repo>` (the source checkout, absolute) filled in. Write it to a file in
+   your scratchpad; the worker runs its own review cycle from it.
 
    After launching the agent, wait for it to finish using the
    **wait and handle blocked** recipe.
@@ -64,4 +49,5 @@ the steps below refer to them by recipe name.
    `--onto` branch — fast-forwards that base in the source checkout, removes the
    worktree and its workspace, and deletes the branch; note that it leaves the
    source checkout on the base branch. Then set the issue's Status to done and
-   tick its boxes. On change requests: back to step 4.
+   tick its boxes. On change requests: hand them to the worker verbatim with
+   the **follow-up** recipe, wait, then back to step 3.

@@ -1,6 +1,6 @@
 # Review lenses
 
-Extra reviewers that run alongside `/code-review` in step 3 of `stage` and
+Extra reviewers the worker runs alongside `/code-review` in `stage` and
 `stage-feature`. Lenses come from two files, both optional, and all lenses
 found in either run:
 
@@ -17,7 +17,7 @@ the brief handed to that reviewer verbatim, after filling these placeholders:
 - `{issue}` — issue ref and body, acceptance criteria as a numbered list
 
 Every lens is report-only. It hunts one kind of problem, fixes nothing, and
-leaves the tree as it found it; fixes flow through step 4 to the worker. Its
+leaves the tree as it found it; the worker decides what to fix. Its
 findings are presented under the lens's own heading, never merged into the
 Standards or Spec axes. If a per-repo lens shares a heading with a global
 one, the per-repo lens wins.

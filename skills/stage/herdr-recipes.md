@@ -19,7 +19,9 @@ user passed `--onto <branch>`, it is the repository's default branch:
     git symbolic-ref --short refs/remotes/origin/HEAD   # e.g. origin/master
 
 Strip the `origin/` prefix. If that ref is unset, use whichever of `master` or
-`main` exists. Herdr does not record the base anywhere; keep it in your notes.
+`main` exists. In `stage-feature`, an issue branch's base is the feature's
+integration branch instead. Herdr does not record the base anywhere; keep it
+in your notes.
 
 ## Recipe: spawn
 
@@ -143,9 +145,10 @@ Herdr has no merge command. Merge strategy is rebase then fast-forward.
 
        git -C <path> rebase <base>
 
-3. In the source checkout, check out the base and fast-forward. Refuse if
-   the source checkout is dirty. Note this leaves the source checkout on
-   `<base>`.
+3. In the checkout that holds `<base>` — the source checkout for the
+   default branch, the integration worktree for an integration branch —
+   check out the base and fast-forward. Refuse if that checkout is dirty.
+   Note this leaves the source checkout on `<base>`.
 
        git status --porcelain
        git checkout <base>

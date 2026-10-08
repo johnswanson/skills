@@ -13,7 +13,8 @@ The wiki-touching skills resolve the wiki path from `~/.config/jds-wiki/config.y
 
 ## Issue workflow
 
-- **`jds:stage`** — `/jds:stage <issue>... [--onto <branch>]` — implement an issue in a worktree through subagents, adversarially review it, and stage it running for inspection before merge.
+- **`jds:stage`** — `/jds:stage <issue>... [--onto <branch>]` — implement an issue in a worktree through a Herdr-managed agent, adversarially review it, and stage it running for inspection before merge.
+- **`jds:stage-feature`** — `/jds:stage-feature <feature> [--onto <branch>]` — implement every issue in a feature, one worktree and review cycle per issue, merge them onto an integration branch, and stage that branch for inspection before merge.
 - **`jds:frontier`** — `/jds:frontier` — find the issue tracker's frontier issue — the first unblocked, non-terminal ticket in shipping order — and route it to the right next move.
 - **`jds:workspace`** — `/jds:workspace <task naming a branch or PR>` — open a branch or PR in its own worktree and Herdr workspace, start a Claude agent there, hand it the task, and return.
 
@@ -56,7 +57,8 @@ skills/                       # repo root
 │   ├── plugin.json           # plugin manifest (name: "jds")
 │   └── marketplace.json      # marketplace manifest
 └── skills/                   # default skills directory
-    ├── stage/                # SKILL.md + herdr-recipes.md + review-lenses.md, agents/
+    ├── stage/                # SKILL.md + worker-prompt.md + herdr-recipes.md + review-lenses.md, agents/
+    ├── stage-feature/        # SKILL.md, agents/
     ├── frontier/SKILL.md
     ├── workspace/SKILL.md
     ├── split-pr/             # SKILL.md + REFERENCE.md, scripts/
