@@ -20,7 +20,7 @@ Only `metabase.lib.*`, `metabase.lib-be.*`, and `metabase.query-processor.*` may
 
 ## Workflow
 
-1. **Get the diff.** PR number → `gh pr diff <n>`; branch → `git diff master...HEAD`; otherwise review the working tree / pasted snippet. Limit to changed Clojure (`.clj`/`.cljc`/`.cljs`).
+1. **Get the diff.** PR number → `gh pr diff <n>`; branch → `git diff origin/master...HEAD`; otherwise review the working tree / pasted snippet. Limit to changed Clojure (`.clj`/`.cljc`/`.cljs`).
 2. **Scope each file.** Drop lib/lib-be/qp files (exempt). Keep the rest.
 3. **Scan** every kept hunk against the patterns in [PATTERNS.md](PATTERNS.md). Read the surrounding code — a `get-in` into a query is damning, a `get-in` into an app-db row is not.
 4. **Classify** each finding by the severity ladder below and name the exact remedy.

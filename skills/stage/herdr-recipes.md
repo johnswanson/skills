@@ -18,10 +18,12 @@ user passed `--onto <branch>`, it is the repository's default branch:
 
     git symbolic-ref --short refs/remotes/origin/HEAD   # e.g. origin/master
 
-Strip the `origin/` prefix. If that ref is unset, use whichever of `master` or
-`main` exists. In `stage-feature`, an issue branch's base is the feature's
-integration branch instead. Herdr does not record the base anywhere; keep it
-in your notes.
+Use that remote-tracking ref verbatim — `origin/master`, not `master`. A local
+branch of the same name may be arbitrarily far behind the remote, or absent;
+never use it as the base. If that ref is unset, use whichever of `origin/master`
+or `origin/main` exists. In `stage-feature`, an issue branch's base is the
+feature's integration branch instead. Herdr does not record the base
+anywhere; keep it in your notes.
 
 ## Recipe: spawn
 

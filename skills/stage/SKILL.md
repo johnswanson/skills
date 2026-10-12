@@ -24,10 +24,10 @@ the steps below refer to them by recipe name.
    The branch follows the project's convention, defaulting to the issue id
    (`foo/123`). The agent name is short and recognizable, as the recipes file
    describes; every later agent command addresses the worker by that name.
-   The base is the repository's default branch, `master` or `main`, unless
-   the user passed `--onto <branch>`. Keep the base, workspace id, root pane
-   id, and worktree path from the create response; the **recover
-   identifiers** recipe finds the ids again if they are lost.
+   The base is the repository's default branch, `origin/master` or
+   `origin/main`, unless the user passed `--onto <branch>`. Keep the base,
+   workspace id, root pane id, and worktree path from the create response;
+   the **recover identifiers** recipe finds the ids again if they are lost.
 
    The agent's prompt is `worker-prompt.md` in this skill's directory, with
    `<issue id>`, `<stage dir>` (this skill's directory, absolute), and
