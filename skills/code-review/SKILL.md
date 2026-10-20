@@ -58,9 +58,29 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 ### 4. Find configured lenses
 
-Read `~/.config/code-review/config.yml`. Find the project name. Each configured project has a list of zero or more configured lenses. Each has a name (e.g. "standards") and a prompt.
+Lenses live in `~/.config/code-review/config.json`, keyed by project name (the origin remote's repo name). Each lens maps a name to the path of a file holding its prompt:
 
-### 4. Spawn all sub-agents in parallel
+```json
+{
+  "projects": {
+    "metabase": {
+      "comments": "~/.config/code-review/metabase-comments.md"
+    }
+  }
+}
+```
+
+List this project's lenses, one `name<TAB>path` per line:
+
+```bash
+PROJECT=$(basename -s .git "$(git remote get-url origin)")
+jq -r --arg p "$PROJECT" '.projects[$p] // {} | to_entries[] | "\(.key)\t\(.value)"' \
+  ~/.config/code-review/config.json
+```
+
+No output (or no config file) means no configured lenses. Otherwise read each lens's prompt file (expanding a leading `~`); its contents are that lens's brief.
+
+### 5. Spawn all sub-agents in parallel
 
 **Standards sub-agent prompt** should include:
 
@@ -81,7 +101,7 @@ If the spec is missing, skip the Spec sub-agent and note this in the final repor
 - The full diff command and commit list.
 - The brief as specified by that configured lens.
 
-### 5. Aggregate
+### 6. Aggregate
 
 Present the reports under `## Standards`, `## Spec`, and `## User-Defined` headings, verbatim or lightly cleaned. Do **not** merge or rerank findings, because the two axes are deliberately separate (see _Why two axes_).
 
