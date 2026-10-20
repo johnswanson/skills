@@ -107,7 +107,7 @@ Present the reports under `## Standards`, `## Spec`, and `## User-Defined` headi
 
 End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Don't pick a single winner across axes: that's the reranking the separation exists to prevent.
 
-## Why two axes
+## Why separate axes
 
 A change can pass one axis and fail the other:
 
