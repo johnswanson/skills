@@ -24,6 +24,11 @@ The wiki-touching skills resolve the wiki path from `~/.config/jds-wiki/config.y
 - **`jds:mbql-dictator`** — `/jds:mbql-dictator` — review a Clojure/ClojureScript diff for MBQL introspection: queries, clauses, refs, and column metadata may only be inspected or built through the public Lib API, never by digging into query data outside of Lib or the QP.
 - **`jds:simplified`** — `/jds:simplified` — explain the provided input, or the last message in the conversation, in ASD-STE100 Simplified Technical English, with a little context.
 
+## Songwriting
+
+- **`jds:lyrics`** — `/jds:lyrics <brief>` — write song lyrics in the chat, shaped on a reference song and formatted for Suno (every annotation in `[brackets]`).
+- **`jds:suno-style`** — `/jds:suno-style` — write a Suno style prompt for the song in the conversation, describing references in place of artist names.
+
 ## Bootstrap on a new machine
 
 ```bash
@@ -63,7 +68,9 @@ skills/                       # repo root
     ├── workspace/SKILL.md
     ├── split-pr/             # SKILL.md + REFERENCE.md, scripts/
     ├── mbql-dictator/        # SKILL.md + PATTERNS.md
-    └── simplified/SKILL.md
+    ├── simplified/SKILL.md
+    ├── lyrics/SKILL.md
+    └── suno-style/SKILL.md
 ```
 
 Each folder under `skills/` containing a `SKILL.md` becomes a skill in the `jds:` namespace.
