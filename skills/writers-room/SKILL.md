@@ -31,11 +31,11 @@ one `final.md`. Read `example/NOTES.md` before you write your first notes.
 ### 1. Write the brief
 
 Settle with the user, from the conversation or by asking once: who sings (a recurring character gets a biography),
-what the song is about, the **hook** (the one or two lines the song exists to deliver, fixed close to word for word),
-and whether the sound is open or given. Then write `BRIEF.md` to the outline. Invoke the `lyrics` and `suno-style`
-skills and copy their format rules into the brief, so the writers get the user's current rules.
+what the song is about, and whether the sound is open or given. Then write `BRIEF.md` to the outline. Invoke the
+`lyrics` and `suno-style` skills and copy their format rules into the brief, so the writers get the user's
+current rules.
 
-Done when a stranger given only `BRIEF.md` could write the song: the singer, the story, the hook, the sincere turn,
+Done when a stranger given only `BRIEF.md` could write the song: the singer, the story,
 the facts that may be used and the ones that may not, the craft rules and the output format are all on the page.
 
 ### 2. Round 1: fan out
@@ -101,32 +101,22 @@ Editing is line by line. For each draft, read every line and sort it:
 
 - **KEEP**: a line the song should be built round. Quote it. These go to the writer as protected, and the best of
   them from drafts that do not advance go into the line bank.
-- **FIX**: a line that fails. Quote it, say why in a few words, and point at the repair. "Rewrite verse 2" is not a
-  note; "'could tell the truck' makes no sense, a man does not talk to his truck; he tells his crew, or he honks" is.
+- **FIX**: a line that fails. Quote it, say why in a few words, and point at the repair.
 
 A line fails for one of these reasons:
 
-- **It fails the stranger test.** Say the line to a stranger with no context: do they see one clear picture, and is
-  it true to the story? Lines that only sound poetic, mixed metaphors, pronouns with no referent, props that were
-  never introduced, and numbers that do not add up all fail. This is the test the user cares about most; apply it to
-  every line of every round, including lines you praised earlier.
 - **It is filler**, there to complete a rhyme or a line count.
 - **It breaks the verse shape.** One line count, rhyme scheme and line length per section type, so the melody repeats.
 - **It breaks a running metaphor**, working on one level and not the other.
-- **It is unfair**: a dig at a person or a group where the brief asked for affection.
 
 Then check the song as a whole:
 
-- The hook has a **rhyme partner**, a line before or after it that rhymes with its last word. A hook with none lands
-  flat when sung.
-- The hook arrives by about 1:30, or the wait is the joke and the song knows it.
 - The story is in order and survives one hearing.
-- The sincere turn is there, and nothing jokes inside it.
 - Sung words fall in the target range.
 
 **The line bank** is the part of `NOTES.md` that carries good ideas between drafts: the best lines from all drafts,
-quoted with their draft number, grouped by what they do in the song (the motif, the set-up for the hook, the sincere
-turn, small true details). Tell writers to take two or three that fit and reword them to their own metre.
+quoted with their draft number, grouped by what they do in the song. Tell writers to take two or three that fit and
+reword them to their own metre.
 
 **Style checks.** One line of 12 to 20 lowercase tags; the singer's voice named; no artist, song or album names;
 every tag says what should be heard, because a tag such as "no pedal steel" summons the thing it names; specific
