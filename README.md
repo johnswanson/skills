@@ -28,6 +28,7 @@ The wiki-touching skills resolve the wiki path from `~/.config/jds-wiki/config.y
 
 - **`jds:lyrics`** — `/jds:lyrics <brief>` — write song lyrics in the chat, shaped on a reference song and formatted for Suno (every annotation in `[brackets]`).
 - **`jds:suno-style`** — `/jds:suno-style` — write a Suno style prompt for the song in the conversation, describing references in place of artist names.
+- **`jds:writers-room`** — `/jds:writers-room <song>` — run a writers' room for one song: about ten subagents draft lyrics and a Suno style from one brief, an editor critiques every line, and the best five are rewritten and polished into ranked finals.
 
 ## Bootstrap on a new machine
 
